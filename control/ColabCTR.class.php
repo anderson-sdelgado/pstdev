@@ -5,24 +5,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../control/FuncDAO.class.php');
+require_once('../model/dao/ColabDAO.class.php');
 /**
  * Description of FuncDAO
  *
  * @author anderson
  */
-class FuncDAO {
+class ColabCTR {
     //put your code here
     
     public function dados($versao) {
 
         $versao = str_replace("_", ".", $versao);
         
-        $funcDAO = new FuncDAO();
+        $colabDAO = new ColabDAO();
         
         if($versao >= 1.00){
         
-            $dados = array("dados" => $funcDAO->dados());
+            $dados = array("dados" => $colabDAO->dados());
             $json_str = json_encode($dados);
 
             return $json_str;

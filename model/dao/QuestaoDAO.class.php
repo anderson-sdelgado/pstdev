@@ -7,20 +7,21 @@
  */
 require_once('../dbutil/Conn.class.php');
 /**
- * Description of TurnoDAO
+ * Description of ItemDAO
  *
  * @author anderson
  */
-class TurnoDAO extends Conn {
+class QuestaoDAO extends Conn {
     //put your code here
     
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idTurno\" "
-                    . " , DESCR AS \"descrTurno\" "
+                    . " ID AS \"idQuestao\" "
+                    . " , TOPICO_ID AS \"idTopico\" "
+                    . " , CARACTER(DESCR) AS \"descrQuestao\" "
                 . " FROM " 
-                    . " PAC_TURNO_TB_PROVISORIA " 
+                    . " PAC_QUESTAO_TB_PROVISORIA " 
                 . " ORDER BY " 
                     . " ID "
                 . " ASC ";

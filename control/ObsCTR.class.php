@@ -5,9 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../control/TipoObsDAO.class.php');
-require_once('../control/TopicoObsDAO.class.php');
-require_once('../control/QuestaoObsDAO.class.php');
+require_once('../model/dao/TipoDAO.class.php');
+require_once('../model/dao/TopicoDAO.class.php');
+require_once('../model/dao/QuestaoDAO.class.php');
 /**
  * Description of ObservacaoCTR
  *
@@ -20,11 +20,11 @@ class ObsCTR {
 
         $versao = str_replace("_", ".", $versao);
         
-        $tipoObsDAO = new TipoObsDAO();
+        $tipoDAO = new TipoDAO();
         
         if($versao >= 1.00){
         
-            $dados = array("dados" => $tipoObsDAO->dados());
+            $dados = array("dados" => $tipoDAO->dados());
             $json_str = json_encode($dados);
 
             return $json_str;
@@ -37,11 +37,11 @@ class ObsCTR {
 
         $versao = str_replace("_", ".", $versao);
         
-        $topicoObsDAO = new TopicoObsDAO();
+        $topicoDAO = new TopicoDAO();
         
         if($versao >= 1.00){
         
-            $dados = array("dados" => $topicoObsDAO->dados());
+            $dados = array("dados" => $topicoDAO->dados());
             $json_str = json_encode($dados);
 
             return $json_str;
@@ -54,11 +54,11 @@ class ObsCTR {
 
         $versao = str_replace("_", ".", $versao);
         
-        $questaoObsDAO = new QuestaoObsDAO();
+        $questaoDAO = new QuestaoDAO();
         
         if($versao >= 1.00){
         
-            $dados = array("dados" => $questaoObsDAO->dados());
+            $dados = array("dados" => $questaoDAO->dados());
             $json_str = json_encode($dados);
 
             return $json_str;

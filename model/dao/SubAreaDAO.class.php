@@ -7,20 +7,21 @@
  */
 require_once('../dbutil/Conn.class.php');
 /**
- * Description of TurnoDAO
+ * Description of CentroCustoDAO
  *
  * @author anderson
  */
-class TurnoDAO extends Conn {
+class SubAreaDAO extends Conn {
     //put your code here
     
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idTurno\" "
-                    . " , DESCR AS \"descrTurno\" "
+                    . " ID AS \"idSubArea\" "
+                    . " , AREA_ID AS \"idArea\" "
+                    . " , DESCR AS \"descrSubArea\" "
                 . " FROM " 
-                    . " PAC_TURNO_TB_PROVISORIA " 
+                    . " PAC_CENTRO_CUSTO_TB_PROVISORIA " 
                 . " ORDER BY " 
                     . " ID "
                 . " ASC ";
