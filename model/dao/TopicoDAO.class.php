@@ -17,13 +17,15 @@ class TopicoDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idTopico\" "
-                    . " , TIPO_ID AS \"idTipo\" "
-                    . " , CARACTER(DESCR) AS \"descrTopico\" "
+                    . " ITQUEST_ID AS \"idTopico\" "
+                    . " , ID_PAI AS \"idTipo\" "
+                    . " , CARACTER(UPPER(DESCR)) AS \"descrTopico\" "
                 . " FROM " 
-                    . " PAC_TOPICO_TB_PROVISORIA " 
+                    . " VST_ABORD_QUEST " 
+                . " WHERE "
+                    . " NIVEL = 2 " 
                 . " ORDER BY " 
-                    . " ID "
+                    . " SEQ "
                 . " ASC ";
         
         $this->Conn = parent::getConn();

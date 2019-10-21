@@ -17,12 +17,12 @@ class TurnoDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idTurno\" "
-                    . " , DESCR AS \"descrTurno\" "
+                    . " ABORDTURNO_ID AS \"idTurno\" "
+                    . " , CARACTER(UPPER(DESCR)) AS \"descrTurno\" "
                 . " FROM " 
-                    . " PAC_TURNO_TB_PROVISORIA " 
+                    . " VST_ABORD_TURNO " 
                 . " ORDER BY " 
-                    . " ID "
+                    . " ABORDTURNO_ID "
                 . " ASC ";
         
         $this->Conn = parent::getConn();

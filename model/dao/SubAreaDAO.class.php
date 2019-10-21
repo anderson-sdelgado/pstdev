@@ -17,13 +17,13 @@ class SubAreaDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idSubArea\" "
-                    . " , AREA_ID AS \"idArea\" "
+                    . " ABOSUBAREA_ID AS \"idSubArea\" "
+                    . " , ABORDAREA_ID AS \"idArea\" "
                     . " , DESCR AS \"descrSubArea\" "
                 . " FROM " 
-                    . " PAC_CENTRO_CUSTO_TB_PROVISORIA " 
+                    . " VST_ABORD_SUB_AREA " 
                 . " ORDER BY " 
-                    . " ID "
+                    . " ABOSUBAREA_ID "
                 . " ASC ";
         
         $this->Conn = parent::getConn();

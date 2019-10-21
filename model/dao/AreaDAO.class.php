@@ -17,12 +17,12 @@ class AreaDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idArea\" "
+                    . " ABORDAREA_ID AS \"idArea\" "
                     . " , DESCR AS \"descrArea\" "
                 . " FROM " 
-                    . " PAC_AREA_TB_PROVISORIA " 
+                    . " VST_ABORD_AREA " 
                 . " ORDER BY " 
-                    . " ID "
+                    . " ABORDAREA_ID "
                 . " ASC ";
         
         $this->Conn = parent::getConn();

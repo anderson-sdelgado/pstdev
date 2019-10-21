@@ -17,13 +17,15 @@ class QuestaoDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                    . " ID AS \"idQuestao\" "
-                    . " , TOPICO_ID AS \"idTopico\" "
-                    . " , CARACTER(DESCR) AS \"descrQuestao\" "
+                    . " ALQUEST_ID AS \"idQuestao\" "
+                    . " , ID_PAI AS \"idTopico\" "
+                    . " , CARACTER(UPPER(DESCR)) AS \"descrQuestao\" "
                 . " FROM " 
-                    . " PAC_QUESTAO_TB_PROVISORIA " 
+                    . " VST_ABORD_QUEST " 
+                . " WHERE "
+                    . " NIVEL = 3 " 
                 . " ORDER BY " 
-                    . " ID "
+                    . " SEQ "
                 . " ASC ";
         
         $this->Conn = parent::getConn();
