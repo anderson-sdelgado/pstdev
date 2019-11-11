@@ -9,7 +9,7 @@ require_once('../control/AbordagemCTR.class.php');
 if (isset($info)):
 
     $abordagemCTR = new AbordagemCTR();
-    echo $abordagemCTR->salvarDados($versao, $info, "inserirdados");
+    echo "GRAVOU_" . $abordagemCTR->salvarDados($versao, $info, "inserirdados");
     
 endif;
 

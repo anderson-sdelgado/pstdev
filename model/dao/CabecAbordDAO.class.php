@@ -24,7 +24,7 @@ class CabecAbordDAO extends Conn {
                 . " WHERE "
                 . " DTHR_CEL = TO_DATE('" . $cabec->dthrCabAbord . "','DD/MM/YYYY HH24:MI')"
                 . " AND "
-                . " MATRIC_FUNC_CEL = " . $cabec->matricFuncAparCabAbord . " ";
+                . " MATRIC_FUNC = " . $cabec->matricFuncCabAbord . " ";
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -48,7 +48,7 @@ class CabecAbordDAO extends Conn {
                 . " WHERE "
                 . " DTHR_CEL = TO_DATE('" . $cabec->dthrCabAbord . "','DD/MM/YYYY HH24:MI')"
                 . " AND "
-                . " MATRIC_FUNC_CEL = " . $cabec->matricFuncAparCabAbord . " ";
+                . " MATRIC_FUNC = " . $cabec->matricFuncCabAbord . " ";
 
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
@@ -68,8 +68,7 @@ class CabecAbordDAO extends Conn {
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
         $sql = "INSERT INTO PST_ABORD_CABEC ("
-                . " MATRIC_FUNC_CEL "
-                . " , MATRIC_FUNC_ABORD "
+                . " MATRIC_FUNC "
                 . " , ABORDAREA_ID "
                 . " , ABOSUBAREA_ID "
                 . " , ABORDTURNO_ID "
@@ -83,8 +82,7 @@ class CabecAbordDAO extends Conn {
                 . " , DTHR_TRANS "
                 . " ) "
                 . " VALUES ("
-                . " " . $cabec->matricFuncAparCabAbord
-                . " , " . $cabec->matricFuncCabAbord
+                . " " . $cabec->matricFuncCabAbord
                 . " , " . $cabec->idAreaCabAbord
                 . " , " . $cabec->idSubAreaCabAbord
                 . " , " . $cabec->idTurnoCabAbord

@@ -46,17 +46,12 @@ class AbordagemCTR {
             $dadosFoto2 = $jsonObjFoto2->foto;
             $dadosFoto3 = $jsonObjFoto3->foto;
             $dadosFoto4 = $jsonObjFoto4->foto;
-            
-            $idCabecBD = $this->salvarCabec($dadosCabec);
-            $this->salvarItem($idCabecBD, $dadosItem);
-            $this->salvarFoto($idCabecBD, $dadosFoto1);
-            $this->salvarFoto($idCabecBD, $dadosFoto2);
-            $this->salvarFoto($idCabecBD, $dadosFoto3);
-            $this->salvarFoto($idCabecBD, $dadosFoto4);
+
+            return $this->salvarCabec($dadosCabec, $dadosItem, $dadosFoto1, $dadosFoto2, $dadosFoto3, $dadosFoto4);
         }
     }
 
-    private function salvarCabec($dadosCabec) {
+    private function salvarCabec($dadosCabec, $dadosItem, $dadosFoto1, $dadosFoto2, $dadosFoto3, $dadosFoto4) {
         $cabecAbordDado = new CabecAbordDAO();
         foreach ($dadosCabec as $cabec) {
             $v = $cabecAbordDado->verifCabec($cabec);
@@ -64,8 +59,14 @@ class AbordagemCTR {
                 $cabecAbordDado->insCabec($cabec);
             }
             $idCabecBD = $cabecAbordDado->idCabec($cabec);
+            $idCabec = $cabec->idCabAbord;
         }
-        return $idCabecBD;
+        $this->salvarItem($idCabecBD, $dadosItem);
+        $this->salvarFoto($idCabecBD, $dadosFoto1);
+        $this->salvarFoto($idCabecBD, $dadosFoto2);
+        $this->salvarFoto($idCabecBD, $dadosFoto3);
+        $this->salvarFoto($idCabecBD, $dadosFoto4);
+        return $idCabec;
     }
 
     private function salvarItem($idBolBD, $dadosItem) {

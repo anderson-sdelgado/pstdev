@@ -26,28 +26,19 @@ class AtualAplicCTR {
             $dados = $jsonObj->dados;
 
             foreach ($dados as $d) {
-                $matricFunc = $d->matricFuncAtual;
                 $va = $d->versaoAtual;
             }
+            
             $retorno = 'N';
-            $v = $atualAplicDAO->verAtual($matricFunc);
-            if ($v == 0) {
-                $atualAplicDAO->insAtual($matricFunc, $va);
-            } else {
-                $result = $atualAplicDAO->retAtual($matricFunc);
-                foreach ($result as $item) {
-                    $vn = $item['VERSAO_NOVA'];
-                    $vab = $item['VERSAO_ATUAL'];
-                }
-                if ($va != $vab) {
-                    $atualAplicDAO->updAtual($matricFunc, $va);
-                } else {
-                    if ($va != $vn) {
-                        $retorno = 'S';
-                    }
-                }
+            $result = $atualAplicDAO->retAtual();
+            foreach ($result as $item) {
+                $vn = $item['VERSAO_NOVA'];
             }
             
+            if ($va != $vn) {
+                $retorno = 'S';
+            }
+
             return $retorno;
             
         }
