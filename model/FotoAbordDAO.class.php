@@ -6,7 +6,6 @@
  * and open the template in the editor.
  */
 require_once('../dbutil/OCI.class.php');
-require_once('../model/dao/AjusteDataHoraDAO.class.php');
 /**
  * Description of FotoAbordDAO
  *
@@ -43,8 +42,6 @@ class FotoAbordDAO extends OCI {
 
     public function insFoto($idCabec, $foto) {
 
-        $ajusteDataHoraDAO = new AjusteDataHoraDAO();
-
         $sql = "INSERT INTO PST_ABORD_FOTO ("
                 . " ABORD_CABEC_ID "
                 . " , IMAGE "
@@ -57,7 +54,7 @@ class FotoAbordDAO extends OCI {
                 . " " . $idCabec
                 . " , empty_blob() "
                 . " , 'FOTO_" . $foto->idFotoAbord . "'"
-                . " , " . $ajusteDataHoraDAO->dataHoraGMT($foto->dthrFotoAbord)
+                . " , TO_DATE('" . $foto->dthrFotoAbord . "','DD/MM/YYYY HH24:MI') "
                 . " , TO_DATE('" . $foto->dthrFotoAbord . "','DD/MM/YYYY HH24:MI') "
                 . " , SYSDATE "
                 . " ) RETURNING image INTO :image";

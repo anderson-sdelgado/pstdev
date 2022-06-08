@@ -7,29 +7,25 @@
  */
 require_once('../dbutil/Conn.class.php');
 /**
- * Description of FuncDAO
+ * Description of TipoDAO
  *
  * @author anderson
  */
-class ColabDAO extends Conn  {
+class TipoDAO extends Conn {
     //put your code here
     
     public function dados() {
 
         $select = " SELECT "
-                    . " COLAB.CD AS \"matricColab\" "
-                    . " , CORR.NOME AS \"nomeColab\" "
+                    . " ITQUEST_ID AS \"idTipo\" "
+                    . " , CARACTER(UPPER(DESCR)) AS \"descrTipo\" "
+                    . " , DECODE(ITQUEST_ID, 85, 1, 0) as \"flagTipo\" "
                 . " FROM " 
-                    . " COLAB COLAB "
-                    . " , CORR CORR "
-                    . " , REG_DEMIS DEM " 
+                    . " VST_ABORD_QUEST "
                 . " WHERE "
-                    . " COLAB.CD > 10000 "
-                    . " AND COLAB.CORR_ID = CORR.CORR_ID "
-                    . " AND DEM.COLAB_ID IS NULL " 
-                    . " AND COLAB.COLAB_ID = DEM.COLAB_ID(+) "
+                    . " NIVEL = 1 " 
                 . " ORDER BY " 
-                    . " COLAB.CD "
+                    . " SEQ "
                 . " ASC ";
         
         $this->Conn = parent::getConn();

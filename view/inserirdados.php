@@ -1,15 +1,14 @@
 <?php
-//var_dump($_POST);
-
-$versao = filter_input(INPUT_GET, 'versao', FILTER_DEFAULT);
-$info = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 require_once('../control/AbordagemCTR.class.php');
 
-if (isset($info)):
+header('Content-type: application/json');
+$body = file_get_contents('php://input');
+
+if (isset($body)):
 
     $abordagemCTR = new AbordagemCTR();
-    echo "GRAVOU_" . $abordagemCTR->salvarDados($versao, $info, "inserirdados");
+    $idCabecArray = $abordagemCTR->salvarDados($body);
+    echo json_encode($idCabecArray);
     
 endif;
-

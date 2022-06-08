@@ -1,9 +1,7 @@
 <?php
 
-$versao = filter_input(INPUT_GET, 'versao', FILTER_DEFAULT);
+require_once('../control/BaseDadosCTR.class.php');
 
-require_once('../control/SubAreaCTR.class.php');
+$baseDadosCTR = new BaseDadosCTR();
 
-$subAreaCTR = new SubAreaCTR();
-
-echo $subAreaCTR->dados($versao);
+echo $baseDadosCTR->dadosSubArea();

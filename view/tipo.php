@@ -1,9 +1,7 @@
 <?php
 
-$versao = filter_input(INPUT_GET, 'versao', FILTER_DEFAULT);
+require_once('../control/BaseDadosCTR.class.php');
 
-require_once('../control/ObsCTR.class.php');
+$baseDadosCTR = new BaseDadosCTR();
 
-$obsCTR = new ObsCTR();
-
-echo $obsCTR->dadosTipo($versao);
+echo $baseDadosCTR->dadosTipo();

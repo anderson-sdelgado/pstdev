@@ -5,9 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/dao/CabecAbordDAO.class.php');
-require_once('../model/dao/ItemAbordDAO.class.php');
-require_once('../model/dao/FotoAbordDAO.class.php');
+require_once('../model/CabecAbordDAO.class.php');
+require_once('../model/ItemAbordDAO.class.php');
+require_once('../model/FotoAbordDAO.class.php');
 
 /**
  * Description of AbordagemCTR
@@ -16,75 +16,44 @@ require_once('../model/dao/FotoAbordDAO.class.php');
  */
 class AbordagemCTR {
 
-    //put your code here
-
-    public function salvarDados($versao, $info, $pagina) {
-
-        $cabec = $info['cabec'];
-        $item = $info['item'];
-        $foto1 = $info['foto1'];
-        $foto2 = $info['foto2'];
-        $foto3 = $info['foto3'];
-        $foto4 = $info['foto4'];
-        $pagina = $pagina . '-' . $versao;
-//        $this->salvarLog($dados, $pagina);
-
-        $versao = str_replace("_", ".", $versao);
-
-        if ($versao >= 1.00) {
-
-            $jsonObjCabec = json_decode($cabec);
-            $jsonObjItem = json_decode($item);
-            $jsonObjFoto1 = json_decode($foto1);
-            $jsonObjFoto2 = json_decode($foto2);
-            $jsonObjFoto3 = json_decode($foto3);
-            $jsonObjFoto4 = json_decode($foto4);
-
-            $dadosCabec = $jsonObjCabec->cabec;
-            $dadosItem = $jsonObjItem->item;
-            $dadosFoto1 = $jsonObjFoto1->foto;
-            $dadosFoto2 = $jsonObjFoto2->foto;
-            $dadosFoto3 = $jsonObjFoto3->foto;
-            $dadosFoto4 = $jsonObjFoto4->foto;
-
-            return $this->salvarCabec($dadosCabec, $dadosItem, $dadosFoto1, $dadosFoto2, $dadosFoto3, $dadosFoto4);
+    public function salvarDados($body) {
+        $idCabecArray = array();
+        $cabecArray = json_decode($body);
+        foreach($cabecArray as $cabec){
+            $this->salvarCabec($cabec);
+            $idCabecBD = $this->salvarCabec($cabec);
+            $this->salvarItem($idCabecBD, $cabec->itemAbordBeanList);
+            $this->salvarFoto($idCabecBD, $cabec->fotoAbordBeanList);
+            $idCabecArray[] = array("idCabecAbord" => $cabec->idCabecAbord);
         }
+        return $idCabecArray;
     }
-
-    private function salvarCabec($dadosCabec, $dadosItem, $dadosFoto1, $dadosFoto2, $dadosFoto3, $dadosFoto4) {
+    
+    private function salvarCabec($cabec) {
         $cabecAbordDado = new CabecAbordDAO();
-        foreach ($dadosCabec as $cabec) {
-            $v = $cabecAbordDado->verifCabec($cabec);
-            if ($v == 0) {
-                $cabecAbordDado->insCabec($cabec);
-            }
-            $idCabecBD = $cabecAbordDado->idCabec($cabec);
-            $idCabec = $cabec->idCabAbord;
+        $v = $cabecAbordDado->verifCabec($cabec);
+        if ($v == 0) {
+            $cabecAbordDado->insCabec($cabec);
         }
-        $this->salvarItem($idCabecBD, $dadosItem);
-        $this->salvarFoto($idCabecBD, $dadosFoto1);
-        $this->salvarFoto($idCabecBD, $dadosFoto2);
-        $this->salvarFoto($idCabecBD, $dadosFoto3);
-        $this->salvarFoto($idCabecBD, $dadosFoto4);
-        return $idCabec;
+        return $cabecAbordDado->idCabec($cabec);
     }
 
-    private function salvarItem($idBolBD, $dadosItem) {
+    private function salvarItem($idCabecBD, $dadosItem) {
         $itemAbordDAO = new ItemAbordDAO();
         foreach ($dadosItem as $item) {
-            $v = $itemAbordDAO->verifItem($idBolBD, $item);
+            $v = $itemAbordDAO->verifItem($idCabecBD, $item);
             if ($v == 0) {
-                $itemAbordDAO->insItem($idBolBD, $item);
+                $itemAbordDAO->insItem($idCabecBD, $item);
             }
         }
     }
 
-    private function salvarFoto($idBolBD, $dadosFoto) {
+    private function salvarFoto($idCabecBD, $dadosFoto) {
         $fotoAbordDAO = new FotoAbordDAO();
         foreach ($dadosFoto as $foto) {
-            $v = $fotoAbordDAO->verifFoto($idBolBD, $foto);
+            $v = $fotoAbordDAO->verifFoto($idCabecBD, $foto);
             if ($v == 0) {
-                $fotoAbordDAO->insFoto($idBolBD, $foto);
+                $fotoAbordDAO->insFoto($idCabecBD, $foto);
             }
         }
     }

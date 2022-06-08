@@ -1,9 +1,7 @@
 <?php
 
-$versao = filter_input(INPUT_GET, 'versao', FILTER_DEFAULT);
+require_once('../control/BaseDadosCTR.class.php');
 
-require_once('../control/TurnoCTR.class.php');
+$baseDadosCTR = new BaseDadosCTR();
 
-$turnoCTR = new TurnoCTR();
-
-echo $turnoCTR->dados($versao);
+echo $baseDadosCTR->dadosTurno();

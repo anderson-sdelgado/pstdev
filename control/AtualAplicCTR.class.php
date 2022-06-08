@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/dao/AtualAplicDAO.class.php');
+require_once('../model/AtualAplicDAO.class.php');
 /**
  * Description of AtualAplicativoCTR
  *
@@ -14,35 +14,29 @@ require_once('../model/dao/AtualAplicDAO.class.php');
 class AtualAplicCTR {
     //put your code here
     
-    public function atualAplic($versao, $info) {
+    public function atualAplic($info) {
 
-        $versao = str_replace("_", ".", $versao);
-        
-        if($versao >= 1.00){
-        
-            $atualAplicDAO = new AtualAplicDAO();
+        $atualAplicDAO = new AtualAplicDAO();
 
-            $jsonObj = json_decode($info['dado']);
-            $dados = $jsonObj->dados;
+        $jsonObj = json_decode($info['dado']);
+        $dados = $jsonObj->dados;
 
-            foreach ($dados as $d) {
-                $va = $d->versaoAtual;
-            }
-            
-            $retorno = 'N';
-            $result = $atualAplicDAO->retAtual();
-            foreach ($result as $item) {
-                $vn = $item['VERSAO_NOVA'];
-            }
-            
-            if ($va != $vn) {
-                $retorno = 'S';
-            }
-
-            return $retorno;
-            
+        foreach ($dados as $d) {
+            $va = $d->versaoAtual;
         }
-        
+
+        $retorno = 'N';
+        $result = $atualAplicDAO->retAtual();
+        foreach ($result as $item) {
+            $vn = $item['VERSAO_NOVA'];
+        }
+
+        if ($va <= $vn) {
+            $retorno = 'S';
+        }
+
+        return $retorno;
+
     }
     
 }
