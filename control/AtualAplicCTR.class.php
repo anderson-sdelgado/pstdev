@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/AtualAplicDAO.class.php');
+require('../model/AtualAplicDAO.class.php');
 /**
  * Description of AtualAplicativoCTR
  *
@@ -13,30 +13,65 @@ require_once('../model/AtualAplicDAO.class.php');
  */
 class AtualAplicCTR {
     //put your code here
-    
-    public function atualAplic($info) {
 
-        $atualAplicDAO = new AtualAplicDAO();
-
+    public function inserirDados($info){
+        
         $jsonObj = json_decode($info['dado']);
         $dados = $jsonObj->dados;
 
         foreach ($dados as $d) {
-            $va = $d->versaoAtual;
+            $nroAparelho = $d->nroAparelho;
+            $versao = $d->versao;
         }
-
-        $retorno = 'N';
-        $result = $atualAplicDAO->retAtual();
-        foreach ($result as $item) {
-            $vn = $item['VERSAO_NOVA'];
+        
+        return $this->inserirAtualVersao($nroAparelho, $versao);
+        
+    }
+    
+    public function inserirAtualVersao($nroAparelho, $versao) {
+        $atualAplicDAO = new AtualAplicDAO();
+        $v = $atualAplicDAO->verAtual($nroAparelho);
+        if ($v == 0) {
+            $atualAplicDAO->insAtual($nroAparelho, $versao);
+        } else {
+            $atualAplicDAO->updAtual($nroAparelho, $versao);
         }
+        $dado = array("nroAparelho" => $nroAparelho);
+        return json_encode(array("dados" =>array($dado)));
+    }
 
-        if ($va <= $vn) {
-            $retorno = 'S';
+    public function verifToken($info){
+        
+        $jsonObj = json_decode($info['dado']);
+        $dados = $jsonObj->dados;
+
+        foreach ($dados as $d) {
+            $token = $d->token;
         }
-
-        return $retorno;
-
+        
+        $atualAplicDAO = new AtualAplicDAO();
+        $v = $atualAplicDAO->verToken($token);
+        
+        if ($v > 0) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public function verToken($headers){
+        
+        $token = trim(substr($headers['Authorization'], 6));
+        $atualAplicDAO = new AtualAplicDAO();
+        $v = $atualAplicDAO->verToken($token);
+        
+        if ($v > 0) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
     
 }

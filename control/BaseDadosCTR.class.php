@@ -4,6 +4,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
+require_once('../control/AtualAplicCTR.class.php');
 require_once('../model/AreaDAO.class.php');
 require_once('../model/ColabDAO.class.php');
 require_once('../model/TipoDAO.class.php');
@@ -18,87 +19,122 @@ require_once('../model/TurnoDAO.class.php');
  */
 class BaseDadosCTR {
     
-    public function dadosTeste() {
-        
-        $areaDAO = new AreaDAO();
-        return json_encode($areaDAO->dados(), JSON_NUMERIC_CHECK);
-        
-    }
-    
-    public function dadosArea() {
+    public function dadosArea($info) {
 
-        $areaDAO = new AreaDAO();
+        $atualAplicCTR = new AtualAplicCTR();
         
-        $dados = array("dados" => $areaDAO->dados());
-        $json_str = json_encode($dados);
+        if($atualAplicCTR->verifToken($info)){
 
-        return $json_str;
+            $areaDAO = new AreaDAO();
+
+            $dados = array("dados" => $areaDAO->dados());
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
             
     }
     
-    public function dadosColab() {
+    public function dadosColab($info) {
 
-        $colabDAO = new ColabDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+            
+            $colabDAO = new ColabDAO();
 
-        $dados = array("dados" => $colabDAO->dados());
-        $json_str = json_encode($dados);
+            $dados = array("dados" => $colabDAO->dados());
+            $json_str = json_encode($dados);
 
-        return $json_str;
+            return $json_str;
+        
+        }
         
     }
     
-    public function dadosTipo() {
+    public function dadosTipo($info) {
 
-        $tipoDAO = new TipoDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $tipoDAO->dados());
-        $json_str = json_encode($dados);
+            $tipoDAO = new TipoDAO();
 
-        return $json_str;
+            $dados = array("dados" => $tipoDAO->dados());
+            $json_str = json_encode($dados);
 
-    }
-    
-    public function dadosTopico() {
-
-        $topicoDAO = new TopicoDAO();
-
-        $dados = array("dados" => $topicoDAO->dados());
-        $json_str = json_encode($dados);
-
-        return $json_str;
+            return $json_str;
+        
+        }
 
     }
     
-    public function dadosQuestao() {
+    public function dadosTopico($info) {
 
-        $questaoDAO = new QuestaoDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $questaoDAO->dados());
-        $json_str = json_encode($dados);
+            $topicoDAO = new TopicoDAO();
 
-        return $json_str;
+            $dados = array("dados" => $topicoDAO->dados());
+            $json_str = json_encode($dados);
 
-    }
-    
-    public function dadosSubArea() {
-
-        $subAreaDAO = new SubAreaDAO();
-
-        $dados = array("dados" => $subAreaDAO->dados());
-        $json_str = json_encode($dados);
-
-        return $json_str;
+            return $json_str;
+        
+        }
 
     }
     
-    public function dadosTurno() {
+    public function dadosQuestao($info) {
 
-        $turnoDAO = new TurnoDAO();
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
 
-        $dados = array("dados" => $turnoDAO->dados());
-        $json_str = json_encode($dados);
+            $questaoDAO = new QuestaoDAO();
 
-        return $json_str;
+            $dados = array("dados" => $questaoDAO->dados());
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
+
+    }
+    
+    public function dadosSubArea($info) {
+
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+
+            $subAreaDAO = new SubAreaDAO();
+
+            $dados = array("dados" => $subAreaDAO->dados());
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
+
+    }
+    
+    public function dadosTurno($info) {
+
+        $atualAplicCTR = new AtualAplicCTR();
+        
+        if($atualAplicCTR->verifToken($info)){
+
+            $turnoDAO = new TurnoDAO();
+
+            $dados = array("dados" => $turnoDAO->dados());
+            $json_str = json_encode($dados);
+
+            return $json_str;
+        
+        }
             
     }
     

@@ -20,7 +20,6 @@ class AbordagemCTR {
         $idCabecArray = array();
         $cabecArray = json_decode($body);
         foreach($cabecArray as $cabec){
-            $this->salvarCabec($cabec);
             $idCabecBD = $this->salvarCabec($cabec);
             $this->salvarItem($idCabecBD, $cabec->itemAbordBeanList);
             $this->salvarFoto($idCabecBD, $cabec->fotoAbordBeanList);
